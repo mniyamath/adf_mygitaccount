@@ -1,0 +1,9 @@
+{
+	"name": "niyamathadf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0bc0370e-3568-4185-907a-e16ec4316919",
+		"tenantId": "c0378d2e-9fe5-43ec-90fc-6692bae01f12"
+	}
+}
