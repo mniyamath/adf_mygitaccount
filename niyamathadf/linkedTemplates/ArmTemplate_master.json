@@ -7,13 +7,17 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "niyamathadf"
 		},
-		"source_sink_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'source_sink'"
-		},
 		"target_sink_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'target_sink'"
+		},
+		"mykeyvault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://mykeyvault5426.vault.azure.net/"
+		},
+		"source_sink_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "mysecretkey"
 		},
 		"containerUri": {
 			"type": "string",
@@ -42,11 +46,14 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"source_sink_connectionString": {
-						"value": "[parameters('source_sink_connectionString')]"
-					},
 					"target_sink_connectionString": {
 						"value": "[parameters('target_sink_connectionString')]"
+					},
+					"mykeyvault_properties_typeProperties_baseUrl": {
+						"value": "[parameters('mykeyvault_properties_typeProperties_baseUrl')]"
+					},
+					"source_sink_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('source_sink_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},

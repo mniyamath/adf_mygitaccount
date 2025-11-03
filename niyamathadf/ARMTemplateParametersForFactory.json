@@ -5,11 +5,14 @@
 		"factoryName": {
 			"value": "niyamathadf"
 		},
-		"source_sink_connectionString": {
-			"value": ""
-		},
 		"target_sink_connectionString": {
 			"value": ""
+		},
+		"mykeyvault_properties_typeProperties_baseUrl": {
+			"value": "https://mykeyvault5426.vault.azure.net/"
+		},
+		"source_sink_properties_typeProperties_connectionString_secretName": {
+			"value": "mysecretkey"
 		}
 	}
 }

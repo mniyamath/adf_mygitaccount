@@ -7,13 +7,17 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "niyamathadf"
 		},
-		"source_sink_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'source_sink'"
-		},
 		"target_sink_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'target_sink'"
+		},
+		"mykeyvault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://mykeyvault5426.vault.azure.net/"
+		},
+		"source_sink_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "mysecretkey"
 		}
 	},
 	"variables": {
@@ -178,6 +182,19 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/mykeyvault')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('mykeyvault_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/source_sink')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -185,10 +202,19 @@
 				"annotations": [],
 				"type": "AzureBlobStorage",
 				"typeProperties": {
-					"connectionString": "[parameters('source_sink_connectionString')]"
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "mykeyvault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('source_sink_properties_typeProperties_connectionString_secretName')]"
+					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/mykeyvault')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/target_sink')]",
